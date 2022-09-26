@@ -166,6 +166,9 @@ def createTables(file_name):
 
     print(individuals)
     print(familyTable)
+    with open('output.txt', 'w') as w:
+        w.write(str(individuals))
+        w.write(str(familyTable))
     f.close()
     return
 
