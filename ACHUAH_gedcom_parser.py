@@ -45,8 +45,6 @@ def createTables(file_name):
     dateTagToggle = "BIRT"
     birthDate = ""
     deathDate = ""
-    isChild = False
-    isSpouse = False
     currentIndividual = ""
     currentPersonName = ""
     currentFamily = ""
