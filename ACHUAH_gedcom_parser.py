@@ -1,8 +1,22 @@
-from pickle import TRUE
+from datetime import date
+from dateutil import parser
 from prettytable import PrettyTable
+from collections import defaultdict
 
 familyTable = PrettyTable()
 individuals = PrettyTable()
+
+def calculateAge(birthDate, deathDate = None):
+    # Convert birthdate to datetime object
+    birth_obj = parser.parse(birthDate)
+    if not deathDate:
+        today = date.today()
+        age = today.year - birth_obj.year - ((today.month, today.day) < (birth_obj.month, birth_obj.day))
+    else:
+        death_obj = parser.parse(deathDate)
+        age = death_obj.year - birth_obj.year - ((death_obj.month, death_obj.day) < (birth_obj.month, birth_obj.day))
+
+    return age
 
 def createTables(file_name):
     # Opens gedcom file for reading
@@ -27,16 +41,39 @@ def createTables(file_name):
         "NOTE"
     ]
 
-    check = TRUE
-    
+    ind_check = False
+    dateTagToggle = "BIRT"
+    birthDate = ""
+    deathDate = ""
+    isChild = False
+    isSpouse = False
+    currentIndividual = ""
+    currentPersonName = ""
+    currentFamily = ""
+    children = []
+
+    indi_id_lookup = {}
+    family_id_lookup = {}
 
     # Column entries
-    ids = []
+    # Individual
+    indi_ids = []
     names = []
     gender_list = []
     birthdays = []
+    ages = []
     alive_list = []
-    children = []
+    death_list = []
+
+    # Family
+    family_ids = []
+    married_list = []
+    divorce_list = []
+    child_list = []
+    husb_list = []
+    husb_ids = []
+    wife_list = []
+    wife_ids = []
 
     while(True):
         line = f.readline()
@@ -47,41 +84,90 @@ def createTables(file_name):
         for tag in tagsLookup:
             if tag in _line:
                 if tag == "INDI":
-                    ids.append(_line[1])
-
-                    return
+                    indi_ids.append(_line[1])
+                    ind_check = True
+                    currentIndividual = _line[1]
                 elif tag == "FAM":
-                    return
+                    if len(child_list) != 0 and currentFamily != '':
+                        family_id_lookup.setdefault(currentFamily, ', '.join(child_list))
+                        child_list.clear()
+                    elif len(child_list) == 0 and currentFamily != '':
+                        family_id_lookup.setdefault(currentFamily, "N/A")
+                    family_ids.append(_line[1])
+                    currentFamily = _line[1]
                 # Other tags
                 else:
-                    args = ' '.join(_line[2:])
-                    if args == "":
-                        return
-                    if tag == "NAME":
-                        return
-                    elif tag == "SEX":
-                        return
-                    elif tag == "BIRT":
-                        return
-                    elif tag == "DEAT":
-                        return
-                    elif tag == "MARR":
-                        return
-                    elif tag == "DATE":
-                        return
-                    elif tag == "HUSB":
-                        return
-                    elif tag == "WIFE":
-                        return
-                    elif tag == "CHIL":
-                        return
+                    if ind_check:
+                        args = ' '.join(_line[2:])
+                        if args == "":
+                            args = 'N/A'
+                        if tag == "NAME":
+                            names.append(args)
+                            currentPersonName = args
+                            indi_id_lookup[currentIndividual] = currentPersonName
+                        elif tag == "SEX":
+                            gender_list.append(args)
+                        elif tag == "BIRT":
+                            dateTagToggle = "BIRT"
+                        elif tag == "DEAT":
+                            dateTagToggle = "DEAT"
+                        elif tag == "MARR":
+                            dateTagToggle = "MARR"
+                        elif tag == "DIV":
+                            dateTagToggle = "DIV"
+                        # This assumes both birt and deat tags come one after another
+                        elif tag == "DATE":
+                            if dateTagToggle == "BIRT":
+                                birthDate = args
+                                birthdays.append(args)
+                                ages.append(calculateAge(birthDate))
+                                alive_list.append("True")
+                                death_list.append("N/A")
+                            elif dateTagToggle == "DEAT":
+                                deathDate = args
+                                death_list[-1] = args
+                                alive_list[-1] = "False"
+                                ages[-1] = calculateAge(birthDate, deathDate)
+                            elif dateTagToggle == "MARR":
+                                married_list.append(args)
+                                divorce_list.append("N/A")
+                            elif dateTagToggle == "DIV":
+                                divorce_list[-1] = args
 
-    individuals.add_column("ID")
-    individuals.add_column("Name")
-    individuals.add_column("Gender")
-    individuals.add_column("Birthday")
-    individuals.add_column("Alive")
+                        elif tag == "HUSB":
+                            if args in indi_id_lookup.keys():                                
+                                husb_ids.append(args)
+                                husb_list.append(indi_id_lookup.get(args))
+                        elif tag == "WIFE":
+                            if args in indi_id_lookup.keys():                                
+                                wife_ids.append(args)
+                                wife_list.append(indi_id_lookup.get(args))
+                        elif tag == "CHIL":
+                            child_list.append(args)
 
+    family_id_lookup.setdefault(currentFamily, ', '.join(child_list))
+    for k, v in family_id_lookup.items():
+        children.append(v)
+
+    individuals.add_column("ID", indi_ids)
+    individuals.add_column("Name", names)
+    individuals.add_column("Gender", gender_list)
+    individuals.add_column("Birthday", birthdays)
+    individuals.add_column("Alive", alive_list)
+    individuals.add_column("Age", ages)
+    individuals.add_column("Death", death_list)
+
+    familyTable.add_column("ID", family_ids)
+    familyTable.add_column("Married", married_list)
+    familyTable.add_column("Divorced", divorce_list)
+    familyTable.add_column("Husband ID", husb_ids)
+    familyTable.add_column("Husband Name", husb_list)
+    familyTable.add_column("Wife ID", wife_ids)
+    familyTable.add_column("Wife Name", wife_list)
+    familyTable.add_column("Children", children)
+
+    print(individuals)
+    print(familyTable)
     f.close()
     return
 
