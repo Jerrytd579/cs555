@@ -1,7 +1,6 @@
 from datetime import date
 from dateutil import parser
 from prettytable import PrettyTable
-import unittest
 
 familyTable = PrettyTable()
 individuals = PrettyTable()
@@ -164,37 +163,12 @@ def createTables(file_name):
     familyTable.add_column("Wife Name", wife_list)
     familyTable.add_column("Children", children)
 
-    print(individuals)
-    print(familyTable)
+    # print(individuals)
+    # print(familyTable)
     with open('output.txt', 'w') as w:
         w.write(str(individuals))
         w.write(str(familyTable))
     f.close()
-    return
+    return 
 
-createTables("ACHUAH_FAMILY.ged")
-
-class TestGEDCOM(unittest.TestCase):
-    # US01 - Dates before the current date
-    def dates_before_currDate(self):
-        return
-
-    # US02 - Birth before marriage
-    def birth_before_marr(self):
-        return
-
-    # US03 - Birth before death
-    def birth_before_death(self):
-        return
-
-    # US04 - Marriage before divorce
-    def marr_before_div(self):
-        return
-    
-    # US05 - ???
-    def us05(self):
-        return
-
-    # US06 - ???
-    def us06(self):
-        return
+# createTables("ACHUAH_FAMILY.ged")
