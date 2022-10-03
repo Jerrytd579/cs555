@@ -1,0 +1,33 @@
++-------+----------------+--------+-------------+-------+-----+-------------+-------+----------------+--------+-------------+-------+-----+-------------+
+|   ID  |      Name      | Gender |   Birthday  | Alive | Age |    Death    |   ID  |      Name      | Gender |   Birthday  | Alive | Age |    Death    |
++-------+----------------+--------+-------------+-------+-----+-------------+-------+----------------+--------+-------------+-------+-----+-------------+
+|  @I1@ | Andrew /Chuah/ |   M    | 17 OCT 2000 |  True |  21 |     N/A     |  @I1@ | Andrew /Chuah/ |   M    | 17 OCT 2000 |  True |  21 |     N/A     |
+|  @I2@ | Bryan /Chuah/  |   M    | 14 MAR 1970 |  True |  52 |     N/A     |  @I2@ | Bryan /Chuah/  |   M    | 14 MAR 1970 |  True |  52 |     N/A     |
+|  @I3@ |  Louisa /Chu/  |   F    | 10 APR 1970 |  True |  52 |     N/A     |  @I3@ |  Louisa /Chu/  |   F    | 10 APR 1970 |  True |  52 |     N/A     |
+|  @I4@ |  Matt /Chuah/  |   M    |  8 NOV 2003 |  True |  18 |     N/A     |  @I4@ |  Matt /Chuah/  |   M    |  8 NOV 2003 |  True |  18 |     N/A     |
+|  @I5@ |    G /Chu/     |   M    |  6 JUL 1950 |  True |  72 |     N/A     |  @I5@ |    G /Chu/     |   M    |  6 JUL 1950 |  True |  72 |     N/A     |
+|  @I6@ |    P /Chu/     |   F    | 13 JUN 1955 |  True |  67 |     N/A     |  @I6@ |    P /Chu/     |   F    | 13 JUN 1955 |  True |  67 |     N/A     |
+|  @I7@ |   Jon /Chu/    |   M    |  5 DEC 1965 |  True |  56 |     N/A     |  @I7@ |   Jon /Chu/    |   M    |  5 DEC 1965 |  True |  56 |     N/A     |
+|  @I8@ |   Stan /Chu/   |   M    |  7 AUG 1964 |  True |  58 |     N/A     |  @I8@ |   Stan /Chu/   |   M    |  7 AUG 1964 |  True |  58 |     N/A     |
+|  @I9@ |   AG /Chuah/   |   M    |  6 MAY 1935 |  True |  87 |     N/A     |  @I9@ |   AG /Chuah/   |   M    |  6 MAY 1935 |  True |  87 |     N/A     |
+| @I10@ |   AM /Chuah/   |   F    |  2 JUN 1938 |  True |  84 |     N/A     | @I10@ |   AM /Chuah/   |   F    |  2 JUN 1938 |  True |  84 |     N/A     |
+| @I11@ | Pheng /Chuah/  |   M    |  2 SEP 1971 |  True |  51 |     N/A     | @I11@ | Pheng /Chuah/  |   M    |  2 SEP 1971 |  True |  51 |     N/A     |
+| @I12@ |   AS /Chuah/   |   M    |  7 OCT 1972 |  True |  49 |     N/A     | @I12@ |   AS /Chuah/   |   M    |  7 OCT 1972 |  True |  49 |     N/A     |
+| @I13@ |    L /Chu/     |   M    |  8 JUN 1910 |  True | 112 |     N/A     | @I13@ |    L /Chu/     |   M    |  8 JUN 1910 |  True | 112 |     N/A     |
+| @I14@ |    Q /Qing/    |   F    |  4 FEB 1903 |  True | 119 |     N/A     | @I14@ |    Q /Qing/    |   F    |  4 FEB 1903 |  True | 119 |     N/A     |
+| @I15@ |    W /Long/    |   F    |  3 APR 1934 |  True |  88 |     N/A     | @I15@ |    W /Long/    |   F    |  3 APR 1934 |  True |  88 |     N/A     |
+| @I16@ |   H /Chuah/    |   M    |  2 DEC 1961 |  True |  60 |     N/A     | @I16@ |   H /Chuah/    |   M    |  2 DEC 1961 |  True |  60 |     N/A     |
+| @I17@ |    D /Chu/     |   F    | 17 MAY 1912 | False |  25 | 12 OCT 1937 | @I17@ |    D /Chu/     |   F    | 17 MAY 1912 | False |  25 | 12 OCT 1937 |
+| @I18@ |   H /Chuah/    |   M    |  4 JUN 1900 | False |  79 | 13 MAR 1980 | @I18@ |   H /Chuah/    |   M    |  4 JUN 1900 | False |  79 | 13 MAR 1980 |
+| @I19@ |    G /Lam/     |   F    | 15 MAR 1900 | False |  80 | 14 AUG 1980 | @I19@ |    G /Lam/     |   F    | 15 MAR 1900 | False |  80 | 14 AUG 1980 |
++-------+----------------+--------+-------------+-------+-----+-------------+-------+----------------+--------+-------------+-------+-----+-------------++------+-------------+-------------+------------+---------------+---------+--------------+--------------------+------+-------------+-------------+------------+---------------+---------+--------------+--------------------+
+|  ID  |   Married   |   Divorced  | Husband ID |  Husband Name | Wife ID |  Wife Name   |      Children      |  ID  |   Married   |   Divorced  | Husband ID |  Husband Name | Wife ID |  Wife Name   |      Children      |
++------+-------------+-------------+------------+---------------+---------+--------------+--------------------+------+-------------+-------------+------------+---------------+---------+--------------+--------------------+
+| @F1@ | 10 SEP 1990 |     N/A     |    @I2@    | Bryan /Chuah/ |   @I3@  | Louisa /Chu/ |     @I1@, @I4@     | @F1@ | 10 SEP 1990 |     N/A     |    @I2@    | Bryan /Chuah/ |   @I3@  | Louisa /Chu/ |     @I1@, @I4@     |
+| @F2@ |  3 JUN 1968 |     N/A     |    @I9@    |   AG /Chuah/  |  @I10@  |  AM /Chuah/  | @I2@, @I11@, @I12@ | @F2@ |  3 JUN 1968 |     N/A     |    @I9@    |   AG /Chuah/  |  @I10@  |  AM /Chuah/  | @I2@, @I11@, @I12@ |
+| @F3@ |  5 MAY 1965 |     N/A     |    @I5@    |    G /Chu/    |   @I6@  |   P /Chu/    |  @I3@, @I7@, @I8@  | @F3@ |  5 MAY 1965 |     N/A     |    @I5@    |    G /Chu/    |   @I6@  |   P /Chu/    |  @I3@, @I7@, @I8@  |
+| @F4@ | 11 APR 1938 |     N/A     |   @I13@    |    L /Chu/    |  @I14@  |   Q /Qing/   |        @I5@        | @F4@ | 11 APR 1938 |     N/A     |   @I13@    |    L /Chu/    |  @I14@  |   Q /Qing/   |        @I5@        |
+| @F7@ |  4 SEP 1935 | 12 OCT 1937 |   @I13@    |    L /Chu/    |  @I17@  |   D /Chu/    |        N/A         | @F7@ |  4 SEP 1935 | 12 OCT 1937 |   @I13@    |    L /Chu/    |  @I17@  |   D /Chu/    |        N/A         |
+| @F5@ |  4 FEB 1960 |  6 JUN 1963 |    @I9@    |   AG /Chuah/  |  @I15@  |   W /Long/   |       @I16@        | @F5@ |  4 FEB 1960 |  6 JUN 1963 |    @I9@    |   AG /Chuah/  |  @I15@  |   W /Long/   |       @I16@        |
+| @F6@ | 11 JUN 1920 |     N/A     |   @I18@    |   H /Chuah/   |  @I19@  |   G /Lam/    |       @I10@        | @F6@ | 11 JUN 1920 |     N/A     |   @I18@    |   H /Chuah/   |  @I19@  |   G /Lam/    |       @I10@        |
++------+-------------+-------------+------------+---------------+---------+--------------+--------------------+------+-------------+-------------+------------+---------------+---------+--------------+--------------------+
