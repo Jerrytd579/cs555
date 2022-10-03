@@ -42,16 +42,16 @@ class TestGEDCOM(unittest.TestCase):
     # def test_birth_before_death(self):
     #     return
 
-    # # US04
+    # # US04 - Marriage before divorce
     # def test_marr_before_div(self):
     #     return
     
-    # # US05
-    # def test_us05(self):
+    # # US05 - Marriage before death
+    # def test_marr_before_death(self):
     #     return
 
-    # # US6
-    # def test_us06(self):
+    # # US06 - Divorce before death
+    # def test_div_before_death(self):
     #     return
 
 if __name__ == '__main__':
