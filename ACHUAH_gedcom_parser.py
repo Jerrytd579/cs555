@@ -5,6 +5,27 @@ from prettytable import PrettyTable
 familyTable = PrettyTable()
 individuals = PrettyTable()
 
+class Individual:
+    def __init__(self, id, name, gender, birthday, alive, age, death):
+        self.id = id
+        self.name = name
+        self.gender = gender
+        self.birthday = birthday
+        self.alive = alive
+        self.age = age
+        self.death = death
+
+class Family:
+    def __init__(self, id, married, divorced, husb_id, husb_name, wife_id, wife_name, children):
+        self.id = id
+        self.married = married
+        self.divorced = divorced
+        self.husb_id = husb_id
+        self.husb_name = husb_name
+        self.wife_id = wife_id
+        self.wife_name = wife_name
+        self.children = children
+
 def calculateAge(birthDate, deathDate = None):
     # Convert birthdate to datetime object
     birth_obj = parser.parse(birthDate)
@@ -169,6 +190,16 @@ def createTables(file_name):
         w.write(str(individuals))
         w.write(str(familyTable))
     f.close()
-    return 
+
+    ind = []
+    fam = []
+
+    for i in range(len(indi_ids)):
+        ind.append(Individual(indi_ids[i], names[i], gender_list[i], birthdays[i], alive_list[i], ages[i], death_list[i]))
+
+    for i in range(len(family_ids)):
+        fam.append(Family(family_ids[i], married_list[i], divorce_list[i], husb_ids[i], husb_list[i], wife_ids[i], wife_list[i], children[i]))
+    
+    return [ind, fam]
 
 # createTables("ACHUAH_FAMILY.ged")
