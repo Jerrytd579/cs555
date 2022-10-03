@@ -22,7 +22,7 @@ class TestGEDCOM(unittest.TestCase):
         today = datetime.datetime.today()
 
         for person in table[0]:
-            self.assertNotEqual(person.birthday, None, "Error: Birthday cannot be None")
+            self.assertNotEqual(person.birthday, None, "Error: " + person.name + "'s birthday cannot be None!")
             birthDaySplit = person.birthday.split(" ")
             birthday = datetime.datetime(int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
             self.assertLess(birthday, today, "Error: Birthday cannot be before today")
@@ -43,21 +43,27 @@ class TestGEDCOM(unittest.TestCase):
                         divorcedSplit = family.divorced.split(" ")
                         divorcedDay = datetime.datetime(int(divorcedSplit[2]), month_dict[divorcedSplit[1]], int(divorcedSplit[0]))
                         self.assertLess(divorcedDay, today, "Error: Divorced day cannot be before today")
+        print('')
 
-    # # US02 - Birth before marriage
+    # US02 - Birth before marriage
     def test_birth_before_marr(self):
         for family in table[1]:
             for individual in table[0]:
                 if individual.id == family.husb_id or individual.id == family.wife_id:
-                    if family.married != "N/A":
-                        marriedSplit = family.married.split(" ")
-                        marriedDay = datetime.datetime(int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+                    if family.married == "N/A":
+                        print("Error: Specified family does not have a marriage date!")
+                        continue
 
-                        self.assertNotEqual(individual.birthday, None, "Error: Birthday cannot be None")
-                        birthDaySplit = individual.birthday.split(" ")
-                        birthday = datetime.datetime(int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
+                    marriedSplit = family.married.split(" ")
+                    marriedDay = datetime.datetime(int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+
+                    self.assertNotEqual(individual.birthday, None, "Error: " + individual.name + "'s birthday cannot be None")
+                    birthDaySplit = individual.birthday.split(" ")
+                    birthday = datetime.datetime(int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
 
                     self.assertLess(birthday, marriedDay, "Error: Birthday must be before the married day!")
+
+        print('')
 
     # US03 - Birth before death
     def test_birth_before_death(self):
@@ -73,12 +79,13 @@ class TestGEDCOM(unittest.TestCase):
             deathDaySplit = person.death.split(" ")
             deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))        
             self.assertLess(birthday, deathDay, "Error: " + person.name + "'s death is before their birthday!")
-    
+        print('')
+
     # US04 - Marriage before divorce
     def test_marr_before_div(self):
         for family in table[1]:
             if family.married == "N/A":
-                print("Error: No marriage has occurred in this family!")
+                print("Error: Specified family does not have a marriage date!")
                 continue
 
             if family.divorced == "N/A":
@@ -92,27 +99,49 @@ class TestGEDCOM(unittest.TestCase):
                 divorcedSplit = family.divorced.split(" ")
                 divorcedDay = datetime.datetime(int(divorcedSplit[2]), month_dict[divorcedSplit[1]], int(divorcedSplit[0]))
                 self.assertLess(marriedDay, divorcedDay, "Error: Divorced date cannot be before marriage date!")
-    
+        print('')
+
     # US05 - Marriage before death
     def test_marr_before_death(self):
         for family in table[1]:
             for individual in table[0]:
                 if individual.id == family.husb_id or individual.id == family.wife_id:
-                    if family.married != "N/A":
-                        marriedSplit = family.married.split(" ")
-                        marriedDay = datetime.datetime(int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+                    if family.married == "N/A":
+                        print("Error: Specified family does not have a marriage date!")
                         continue
 
-                    if individual.death != "N/A":
-                        deathDaySplit = individual.death.split(" ")
-                        deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
+                    marriedSplit = family.married.split(" ")
+                    marriedDay = datetime.datetime(int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+
+                    if individual.death == "N/A":
+                        print(individual.name + " has not died yet!")
                         continue
-              
-                    self.assertLess(marriedDay, deathDay, "Error: Married day must be before the death day!")
+
+                    deathDaySplit = individual.death.split(" ")
+                    deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
+                    self.assertLess(marriedDay, deathDay, "Error: " + individual.name + "'s death date cannot be before their marriage date!")
+        print('')
 
     # US06 - Divorce before death
     def test_div_before_death(self):
-        return
+        for family in table[1]:
+            for individual in table[0]:
+                if individual.id == family.husb_id or individual.id == family.wife_id:
+                    if family.divorced == "N/A":
+                        print("Error: Specified family does not have a divorce date!")
+                        continue
+
+                    divorcedSplit = family.divorced.split(" ")
+                    divorcedDay = datetime.datetime(int(divorcedSplit[2]), month_dict[divorcedSplit[1]], int(divorcedSplit[0]))
+
+                    if individual.death == "N/A":
+                        print(individual.name + " has not died yet!")
+                        continue
+
+                    deathDaySplit = individual.death.split(" ")
+                    deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
+                    self.assertLess(divorcedDay, deathDay, "Error: " + individual.name + "'s death date cannot be before their divorce date!")
+        print('')
 
 if __name__ == '__main__':
     unittest.main()
