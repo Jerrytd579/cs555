@@ -190,4 +190,11 @@ class TestGEDCOM(unittest.TestCase):
     # US04 - Marriage before divorce
     def marr_before_div(self):
         return
-        
+    
+    # US05 - ???
+    def us05(self):
+        return
+
+    # US06 - ???
+    def us06(self):
+        return
