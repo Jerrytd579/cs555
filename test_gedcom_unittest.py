@@ -95,7 +95,20 @@ class TestGEDCOM(unittest.TestCase):
     
     # US05 - Marriage before death
     def test_marr_before_death(self):
-        return
+        for family in table[1]:
+            for individual in table[0]:
+                if individual.id == family.husb_id or individual.id == family.wife_id:
+                    if family.married != "N/A":
+                        marriedSplit = family.married.split(" ")
+                        marriedDay = datetime.datetime(int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+                        continue
+
+                    if individual.death != "N/A":
+                        deathDaySplit = individual.death.split(" ")
+                        deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
+                        continue
+              
+                    self.assertLess(marriedDay, deathDay, "Error: Married day must be before the death day!")
 
     # US06 - Divorce before death
     def test_div_before_death(self):
