@@ -15,7 +15,7 @@ month_dict = {"JAN": 1,
             "OCT": 10,
             "NOV": 11,
             "DEC": 12}
-
+            
 class TestGEDCOM(unittest.TestCase):
     # US01 - Dates before the current date
     def test_dates_before_currDate(self):
@@ -43,7 +43,7 @@ class TestGEDCOM(unittest.TestCase):
                         divorcedSplit = family.divorced.split(" ")
                         divorcedDay = datetime.datetime(int(divorcedSplit[2]), month_dict[divorcedSplit[1]], int(divorcedSplit[0]))
                         self.assertLess(divorcedDay, today, "Error: Divorced day cannot be before today")
-        print('')
+        print('Test US01 passed successfully!\n')
 
     # US02 - Birth before marriage
     def test_birth_before_marr(self):
@@ -63,7 +63,7 @@ class TestGEDCOM(unittest.TestCase):
 
                     self.assertLess(birthday, marriedDay, "Error: Birthday must be before the married day!")
 
-        print('')
+        print('Test US02 passed successfully!\n')
 
     # US03 - Birth before death
     def test_birth_before_death(self):
@@ -79,7 +79,7 @@ class TestGEDCOM(unittest.TestCase):
             deathDaySplit = person.death.split(" ")
             deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))        
             self.assertLess(birthday, deathDay, "Error: " + person.name + "'s death is before their birthday!")
-        print('')
+        print('Test US03 passed successfully!\n')
 
     # US04 - Marriage before divorce
     def test_marr_before_div(self):
@@ -99,7 +99,7 @@ class TestGEDCOM(unittest.TestCase):
                 divorcedSplit = family.divorced.split(" ")
                 divorcedDay = datetime.datetime(int(divorcedSplit[2]), month_dict[divorcedSplit[1]], int(divorcedSplit[0]))
                 self.assertLess(marriedDay, divorcedDay, "Error: Divorced date cannot be before marriage date!")
-        print('')
+        print('Test US04 passed successfully!\n')
 
     # US05 - Marriage before death
     def test_marr_before_death(self):
@@ -120,7 +120,7 @@ class TestGEDCOM(unittest.TestCase):
                     deathDaySplit = individual.death.split(" ")
                     deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
                     self.assertLess(marriedDay, deathDay, "Error: " + individual.name + "'s death date cannot be before their marriage date!")
-        print('')
+        print('Test US05 passed successfully!\n')
 
     # US06 - Divorce before death
     def test_div_before_death(self):
@@ -141,7 +141,7 @@ class TestGEDCOM(unittest.TestCase):
                     deathDaySplit = individual.death.split(" ")
                     deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
                     self.assertLess(divorcedDay, deathDay, "Error: " + individual.name + "'s death date cannot be before their divorce date!")
-        print('')
+        print('Test US06 passed successfully!\n')
 
 if __name__ == '__main__':
     unittest.main()
