@@ -1,7 +1,7 @@
 import unittest
 import ACHUAH_gedcom_parser
 import datetime
-
+from datetime import date
 table = ACHUAH_gedcom_parser.createTables("ACHUAH_FAMILY.GED")
 month_dict = {"JAN": 1,
             "FEB": 2,
@@ -142,6 +142,50 @@ class TestGEDCOM(unittest.TestCase):
                     deathDay = datetime.datetime(int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
                     self.assertLess(divorcedDay, deathDay, "Error: " + individual.name + "'s death date cannot be before their divorce date!")
         print('Test US06 passed successfully!\n')
+
+    # US13 - Sibling Spacing
+    def test_sibling_spacing(self):
+        for family in table[1]:
+            Children = family.children.split(", ")
+            Birthdays = []
+            for individual in table[0]:
+                if individual.id in Children:
+                    birthdaySplit = individual.birthday.split(" ")
+                    birthDay = datetime.datetime(int(birthdaySplit[2]), month_dict[birthdaySplit[1]], int(birthdaySplit[0])).date()
+                    Birthdays.append(birthDay)
+            for date1 in Birthdays:
+                res = True
+                idx = Birthdays.index(date1)
+                for date2 in range(len(Birthdays)):
+                    if(idx == date2):
+                        continue
+                    delta = date1 - Birthdays[date2]
+                    if abs(delta.days) < 243 and not(delta.days == 0):
+                        res = False
+                self.assertEqual(res, True)     
+        print('Test US13 passed successfully!\n')
+
+    # US14 - Multiple Births
+    def test_multiple_births(self):
+        for family in table[1]:
+            Children = family.children.split(", ")
+            Birthdays = []
+            for individual in table[0]:
+                if individual.id in Children:
+                    birthdaySplit = individual.birthday.split(" ")
+                    birthDay = datetime.datetime(int(birthdaySplit[2]), month_dict[birthdaySplit[1]], int(birthdaySplit[0])).date()
+                    Birthdays.append(birthDay)
+            for date1 in Birthdays:
+                birthdayCount = 0
+                idx = Birthdays.index(date1)
+                for date2 in range(len(Birthdays)):
+                    if(idx == date2):
+                        continue
+                    if date1 == Birthdays[date2]:
+                        birthdayCount = birthdayCount + 1
+                self.assertLessEqual(birthdayCount, 5) 
+        print('Test US14 passed successfully!\n')
+        
 
 if __name__ == '__main__':
     unittest.main()

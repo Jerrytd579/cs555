@@ -12,7 +12,7 @@
 |  @I9@ |   AG /Chuah/   |   M    |  6 MAY 1935 |  True |  87 |     N/A     |
 | @I10@ |   AM /Chuah/   |   F    |  2 JUN 1938 |  True |  84 |     N/A     |
 | @I11@ | Pheng /Chuah/  |   M    |  2 SEP 1971 |  True |  51 |     N/A     |
-| @I12@ |   AS /Chuah/   |   M    |  7 OCT 1972 |  True |  49 |     N/A     |
+| @I12@ |   AS /Chuah/   |   M    |  7 OCT 1972 |  True |  50 |     N/A     |
 | @I13@ |    L /Chu/     |   M    |  8 JUN 1910 |  True | 112 |     N/A     |
 | @I14@ |    Q /Qing/    |   F    |  4 FEB 1903 |  True | 119 |     N/A     |
 | @I15@ |    W /Long/    |   F    |  3 APR 1934 |  True |  88 |     N/A     |
