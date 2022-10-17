@@ -143,6 +143,34 @@ class TestGEDCOM(unittest.TestCase):
                     self.assertLess(divorcedDay, deathDay, "Error: " + individual.name + "'s death date cannot be before their divorce date!")
         print('Test US06 passed successfully!\n')
 
+    # US07 - Less than 150 years old
+    def test_age_less_than_150(self):
+        for individual in table[0]:
+            self.assertIsNotNone(individual.age, "Error: individual does not have an age")
+            self.assertNotEqual(individual.age, "N/A", "Error: individual age cannot be N/A")
+            self.assertLess(int(individual.age), 150, "Error: person must be less than 150 years old")
+        print('Test US07 passed successfully!\n')
+    
+    # US08 - Birth before marriage of parents
+    def test_birth_before_parents_marry(self):
+        for person in table[0]:
+            self.assertNotEqual(person.birthday, None, "Error: " + person.name + "'s birthday cannot be None!")
+            birthDaySplit = person.birthday.split(" ")
+            birthday = datetime.datetime(int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))  
+            personid = person.id
+            for family in table[1]:
+                if personid in family.children:
+                    marriedSplit = family.married.split(" ")
+                    marriedDay = datetime.datetime(int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+
+                    self.assertLess(birthday, marriedDay, "Error: person's birthday must be before parent's marriage.")
+                else:
+                    print("Error: person has no parents")
+                    return
+            
+
+        print('Test US08 passed successfully!\n')
+
     # US13 - Sibling Spacing
     def test_sibling_spacing(self):
         for family in table[1]:

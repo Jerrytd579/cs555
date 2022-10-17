@@ -1,7 +1,7 @@
 +-------+----------------+--------+-------------+-------+-----+-------------+
 |   ID  |      Name      | Gender |   Birthday  | Alive | Age |    Death    |
 +-------+----------------+--------+-------------+-------+-----+-------------+
-|  @I1@ | Andrew /Chuah/ |   M    | 17 OCT 2000 |  True |  21 |     N/A     |
+|  @I1@ | Andrew /Chuah/ |   M    | 17 OCT 2000 |  True |  22 |     N/A     |
 |  @I2@ | Bryan /Chuah/  |   M    | 14 MAR 1970 |  True |  52 |     N/A     |
 |  @I3@ |  Louisa /Chu/  |   F    | 10 APR 1970 |  True |  52 |     N/A     |
 |  @I4@ |  Matt /Chuah/  |   M    |  8 NOV 2003 |  True |  18 |     N/A     |
