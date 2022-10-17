@@ -208,34 +208,41 @@ class TestGEDCOM(unittest.TestCase):
 
         print('Test US08 passed successfully!\n')
 
-    # US09 - Birth before death of parents
-    def test_birth_before_death_of_parents(self):
-        for person in table[0]:
-            self.assertNotEqual(
-                person.birthday, None, "Error: " + person.name + "'s birthday cannot be None!")
-            birthDaySplit = person.birthday.split(" ")
-            birthday = datetime.datetime(
-                int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
-            personid = person.id
-            for family in table[1]:
-                if personid in family.children:
-                    marriedSplit = family.married.split(" ")
-                    marriedDay = datetime.datetime(
-                        int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
+    # # US09 - Birth before death of parents
+    # def test_birth_before_death_of_parents(self):
+    #     for person in table[0]:
+    #         self.assertNotEqual(
+    #             person.birthday, None, "Error: " + person.name + "'s birthday cannot be None!")
+    #         birthDaySplit = person.birthday.split(" ")
+    #         birthday = datetime.datetime(
+    #             int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
+    #         personid = person.id
+    #         for family in table[1]:
+    #             if personid in family.children:
+    #                 marriedSplit = family.married.split(" ")
+    #                 marriedDay = datetime.datetime(
+    #                     int(marriedSplit[2]), month_dict[marriedSplit[1]], int(marriedSplit[0]))
 
-                    self.assertLess(
-                        birthday, marriedDay, "Error: person's birthday must be before parent's marriage.")
-                else:
-                    print("Error: person has no parents")
-                    return
+    #                 self.assertLess(
+    #                     birthday, marriedDay, "Error: person's birthday must be before parent's marriage.")
+    #             else:
+    #                 print("Error: person has no parents")
+    #                 return
 
-        print('Test US08 passed successfully!\n')
+    #     print('Test US08 passed successfully!\n')
 
     # US10 - Marriage after age 14 of parents
 
     def test_marriage_after_age_14(self):
+        for family in table[1]:
+            man = family.husb_id
+            woman = family.wife_id
+            for person in table[0]:
+                if person.id == man or person.id == woman:
+                    self.assertGreaterEqual(
+                        person.age, 14, "Error: Person's age must be at least 14 in order to marry.")
 
-        return
+        print("Test US10 passed successfully!\n")
 
     # US13 - Sibling Spacing
     def test_sibling_spacing(self):
