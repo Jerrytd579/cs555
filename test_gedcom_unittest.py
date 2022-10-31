@@ -295,6 +295,24 @@ class TestGEDCOM(unittest.TestCase):
                 self.assertLessEqual(birthdayCount, 5)
         print('Test US14 passed successfully!\n')
 
+    # US29 - List Living
+    def test_list_deceased(self):
+        deceased = []
+        for family in table[1]:
+            for individual in table[0]:
+                if individual.alive == "False":
+                    if individual.name not in deceased:
+                        deceased.append(individual.name)
+
+        self.assertEqual(3, len(deceased))
+
+        print("Deceased List:")
+        for person in deceased:
+            print(person + ",")
+
+        print('Test US29 passed successfully!\n')
+
+
 
 if __name__ == '__main__':
     unittest.main()
