@@ -295,6 +295,56 @@ class TestGEDCOM(unittest.TestCase):
                 self.assertLessEqual(birthdayCount, 5)
         print('Test US14 passed successfully!\n')
 
+    # US15 Fewer than 15 siblings
+    def test_lessThan15Siblings(self):
+        for person in table[0]:
+            for family in table[1]:
+                children = family.children.split(", ")
+                if person.id in children:
+                    self.assertGreater(len(children)-1, -1, "Error: Person cannot have negative siblings.")
+                    self.assertLess(len(children)-1, 15, "Error: Person has 15 or more siblings.")
+        print("Test US15 passed successfully!\n")
+
+    # US23 Unique name and birth date
+    def test_unique_name_and_birthdate(self):
+        for person1 in table[0]:
+            for person2 in table[0]:
+                if person1.id == person2.id:
+                    continue
+                else:
+                    person1Info = person1.name + " " + person1.birthday
+                    person2Info = person2.name + " " + person2.birthday
+                    self.assertNotEqual(person1Info, person2Info, "Error: Users must have both a unique name and birthdate.")
+        print("Test US23 passed successfully!\n")
+
+    # US24 Unique families by spouses
+    def test_unique_families_by_spouses(self):
+        for family1 in table[1]:
+            for family2 in table[1]:
+                if family1.id == family2.id:
+                    continue
+                else:
+                    spouses1 = family1.husb_id + " " + family1.wife_id
+                    spouses2 = family2.husb_id + " " + family2.wife_id
+                    self.assertNotEqual(spouses1, spouses2, "Error: Families must have unique pair of spouses.")
+        print("Test US24 passed successfully!\n")
+
+    #US25 Unique first names in families
+    def test_unique_first_names_in_families(self):
+        for family in table[1]:
+            familyIds = []
+            familyNames = []
+            familyIds.append(family.husb_id)
+            familyIds.append(family.wife_id)
+            familyIds += family.children.split(", ")
+
+            for person in table[0]:
+                if person.id in familyIds:
+                    familyNames.append(person.name.split()[0])
+
+            familyNamesDupe = set(familyNames)
+            self.assertEqual(len(familyNamesDupe), len(familyNames), "Error: Family contains duplicate names.")
+        print("Test US25 passed successfully!\n")
 
 if __name__ == '__main__':
     unittest.main()

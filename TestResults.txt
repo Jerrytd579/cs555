@@ -1,18 +1,18 @@
 Test US07 passed successfully!
 
-.Error: Person has no parents
-.Test US03 passed successfully!
+Test US03 passed successfully!
 
-.Error: Person has no parents
 .Test US02 passed successfully!
 
 .Test US01 passed successfully!
 
-.Test US06 passed successfully!
+Test US06 passed successfully!
 
-.Test US05 passed successfully!
+.Test US15 passed successfully!
 
-.Test US04 passed successfully!
+Test US05 passed successfully!
+
+Test US04 passed successfully!
 
 .Test US10 passed successfully!
 
@@ -20,4 +20,14 @@ Test US07 passed successfully!
 
 .Test US13 passed successfully!
 
+.Test US24 passed successfully!
+
+.Test US25 passed successfully!
+
+.Test US23 passed successfully!
+
 .
+----------------------------------------------------------------------
+Ran 16 tests in 0.007s
+
+OK
