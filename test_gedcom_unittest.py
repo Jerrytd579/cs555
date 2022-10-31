@@ -295,6 +295,43 @@ class TestGEDCOM(unittest.TestCase):
                 self.assertLessEqual(birthdayCount, 5)
         print('Test US14 passed successfully!\n')
 
+    # US29 - List Deceased
+    def test_list_deceased(self):
+        deceased = []
+        for family in table[1]:
+            for individual in table[0]:
+                if individual.alive == "False":
+                    if individual.name not in deceased:
+                        deceased.append(individual.name)
+
+        self.assertEqual(3, len(deceased))
+
+        print("Deceased List:")
+        for person in deceased:
+            print(person + ",")
+
+        print('Test US29 passed successfully!\n')
+
+    # US30 - List Living Married
+    def test_list_married(self):
+        living_married = []
+        for family in table[1]:
+            if family.married and (family.divorced == "N/A"):
+                for individual in table[0]:
+                    if individual.alive == "True":
+                        if individual.id == family.husb_id or individual.id == family.wife_id:
+                            if individual.name not in living_married:
+                                living_married.append(individual.name)
+
+        self.assertEqual(8, len(living_married))
+
+        print("Living Married List:")
+        for person in living_married:
+            print(person + ",")
+
+        print('Test US30 passed successfully!\n')
+
+
     # US15 Fewer than 15 siblings
     def test_lessThan15Siblings(self):
         for person in table[0]:
