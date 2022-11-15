@@ -332,7 +332,7 @@ class TestGEDCOM(unittest.TestCase):
         print('Test US30 passed successfully!\n')
 
 
-    # US15 Fewer than 15 siblings
+    # US15 - Fewer than 15 siblings
     def test_lessThan15Siblings(self):
         for person in table[0]:
             for family in table[1]:
@@ -342,7 +342,7 @@ class TestGEDCOM(unittest.TestCase):
                     self.assertLess(len(children)-1, 15, "Error: Person has 15 or more siblings.")
         print("Test US15 passed successfully!\n")
 
-    # US23 Unique name and birth date
+    # US23 - Unique name and birth date
     def test_unique_name_and_birthdate(self):
         for person1 in table[0]:
             for person2 in table[0]:
@@ -354,7 +354,7 @@ class TestGEDCOM(unittest.TestCase):
                     self.assertNotEqual(person1Info, person2Info, "Error: Users must have both a unique name and birthdate.")
         print("Test US23 passed successfully!\n")
 
-    # US24 Unique families by spouses
+    # US24 - Unique families by spouses
     def test_unique_families_by_spouses(self):
         for family1 in table[1]:
             for family2 in table[1]:
@@ -366,7 +366,7 @@ class TestGEDCOM(unittest.TestCase):
                     self.assertNotEqual(spouses1, spouses2, "Error: Families must have unique pair of spouses.")
         print("Test US24 passed successfully!\n")
 
-    #US25 Unique first names in families
+    # US25 - Unique first names in families
     def test_unique_first_names_in_families(self):
         for family in table[1]:
             familyIds = []
@@ -382,6 +382,30 @@ class TestGEDCOM(unittest.TestCase):
             familyNamesDupe = set(familyNames)
             self.assertEqual(len(familyNamesDupe), len(familyNames), "Error: Family contains duplicate names.")
         print("Test US25 passed successfully!\n")
+
+    # US16 - Male last names
+    def test_male_last_names(self):
+        return
+
+    # US17 - No marriages to descendants
+    def test_no_descendant_marriage(self):
+        return
+
+    # US18 - Siblings should not marry
+    def test_no_sibling_marriage(self):
+        return
+    
+    # US19 - First cousins should not marry
+    def test_no_first_cousin_marriage(self):
+        return
+
+    # US20 - Aunts and uncles
+    def test_uncles_aunts(self):
+        return
+
+    # US21 - Correct gender for role (ex: wife should be female)
+    def test_gender_roles(self):
+        return
 
 if __name__ == '__main__':
     unittest.main()
