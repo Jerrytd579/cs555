@@ -1,4 +1,5 @@
 from datetime import date
+
 from dateutil import parser
 from prettytable import PrettyTable
 
@@ -6,7 +7,7 @@ familyTable = PrettyTable()
 individuals = PrettyTable()
 
 class Individual:
-    def __init__(self, id, name, gender, birthday, alive, age, death):
+    def __init__(self, id, name, gender, birthday, alive, age, death, child, spouse):
         self.id = id
         self.name = name
         self.gender = gender
@@ -14,6 +15,8 @@ class Individual:
         self.alive = alive
         self.age = age
         self.death = death
+        self.child = child
+        self.spouse = spouse
 
 class Family:
     def __init__(self, id, married, divorced, husb_id, husb_name, wife_id, wife_name, children):
@@ -82,6 +85,8 @@ def createTables(file_name):
     ages = []
     alive_list = []
     death_list = []
+    isChild = []
+    isSpouse = []
 
     # Family
     family_ids = []
@@ -105,6 +110,9 @@ def createTables(file_name):
                     indi_ids.append(_line[1])
                     ind_check = True
                     currentIndividual = _line[1]
+                    # Fills in dummy values in case that they appear in the family section
+                    isChild.append("N/A")
+                    isSpouse.append("N/A")
                 elif tag == "FAM":
                     if len(child_list) != 0 and currentFamily != '':
                         family_id_lookup.setdefault(currentFamily, ', '.join(child_list))
@@ -156,12 +164,24 @@ def createTables(file_name):
                             if args in indi_id_lookup.keys():                                
                                 husb_ids.append(args)
                                 husb_list.append(indi_id_lookup.get(args))
+                                indi_index = indi_ids.index(args)
+                                if isSpouse[indi_index] != "N/A":
+                                    isSpouse[indi_index] += ", " + currentFamily
+                                else:
+                                    isSpouse[indi_index] = currentFamily
                         elif tag == "WIFE":
                             if args in indi_id_lookup.keys():                                
                                 wife_ids.append(args)
                                 wife_list.append(indi_id_lookup.get(args))
+                                indi_index = indi_ids.index(args)
+                                if isSpouse[indi_index] != "N/A":
+                                    isSpouse[indi_index] += ", " + currentFamily
+                                else:
+                                    isSpouse[indi_index] = currentFamily
                         elif tag == "CHIL":
                             child_list.append(args)
+                            indi_index = indi_ids.index(args)
+                            isChild[indi_index] = currentFamily
 
     family_id_lookup.setdefault(currentFamily, ', '.join(child_list))
     for k, v in family_id_lookup.items():
@@ -174,6 +194,8 @@ def createTables(file_name):
     individuals.add_column("Alive", alive_list)
     individuals.add_column("Age", ages)
     individuals.add_column("Death", death_list)
+    individuals.add_column("Child", isChild)
+    individuals.add_column("Spouse", isSpouse)
 
     familyTable.add_column("ID", family_ids)
     familyTable.add_column("Married", married_list)
@@ -184,8 +206,8 @@ def createTables(file_name):
     familyTable.add_column("Wife Name", wife_list)
     familyTable.add_column("Children", children)
 
-    # print(individuals)
-    # print(familyTable)
+    #print(individuals)
+    #print(familyTable)
     with open('output.txt', 'w') as w:
         w.write(str(individuals))
         w.write(str(familyTable))
@@ -195,11 +217,11 @@ def createTables(file_name):
     fam = []
 
     for i in range(len(indi_ids)):
-        ind.append(Individual(indi_ids[i], names[i], gender_list[i], birthdays[i], alive_list[i], ages[i], death_list[i]))
+        ind.append(Individual(indi_ids[i], names[i], gender_list[i], birthdays[i], alive_list[i], ages[i], death_list[i], isChild[i], isSpouse[i]))
 
     for i in range(len(family_ids)):
         fam.append(Family(family_ids[i], married_list[i], divorce_list[i], husb_ids[i], husb_list[i], wife_ids[i], wife_list[i], children[i]))
     
     return [ind, fam]
 
-# createTables("ACHUAH_FAMILY.ged")
+createTables("ACHUAH_FAMILY.ged")
