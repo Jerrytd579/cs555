@@ -42,6 +42,8 @@ Test US06 passed successfully!
 
 Test US21 passed successfully!
 
+Test US19 passed successfully!
+
 Test US15 passed successfully!
 
 Deceased List:
@@ -89,8 +91,6 @@ Test US10 passed successfully!
 Test US14 passed successfully!
 
 Test US17 passed successfully!
-
-Test US19 passed successfully!
 
 Test US18 passed successfully!
 

@@ -17,7 +17,13 @@ month_dict = {"JAN": 1,
               "NOV": 11,
               "DEC": 12}
 
+def valid_date_helper(date):
+    feb = 28
+    if(date.year % 4) == 0:
+        feb = 29
 
+    month_length = [31,feb,31,30,31,30,31,31,30,31,30,31]
+    return date.day < month_length[date.month - 1]
 class TestGEDCOM(unittest.TestCase):
     # US01 - Dates before the current date
     def test_dates_before_currDate(self):
@@ -382,11 +388,11 @@ class TestGEDCOM(unittest.TestCase):
             self.assertEqual(len(familyNamesDupe), len(familyNames), "Error: Family contains duplicate names.")
         print("Test US25 passed successfully!\n")
 
-    # US16 - Male last names
+    # US16 - All males should have the same last names
     def test_male_last_names(self):
         print("Test US16 passed successfully!\n")
 
-    # US17 - No marriages to descendants
+    # US17 - Parents should not marry any of their descendants (may have to use recursion)
     def test_no_descendant_marriage(self):
         print("Test US17 passed successfully!\n")
 
@@ -405,12 +411,32 @@ class TestGEDCOM(unittest.TestCase):
 
         self.assertNotEqual(sibling_marriage, True, "Error: Some siblings are married to each other.")
         print("Test US18 passed successfully!\n")
-    
-    # US19 - First cousins should not be married to each other
-    def test_no_first_cousin_marriage(self):
+
+    # US19 - All dates should be legitimate dates for the months specified (e.g., 2/30/2015 is not legitimate)
+    def test_legit_dates(self):
+        bad_dates = False
+
+        for person in table[0]:
+            if person.birthday != "N/A":
+                birthDaySplit = person.birthday.split(" ")
+                birthday = datetime.datetime(
+                    int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
+                
+                if not valid_date_helper(birthday):
+                    bad_dates = True
+
+            if person.death != "N/A":
+                deathDaySplit = person.death.split(" ")
+                deathDay = datetime.datetime(
+                    int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
+
+                if not valid_date_helper(deathDay):
+                    bad_dates = True
+
+        self.assertNotEqual(bad_dates, True, "Error: Some dates are in an illegtimate format!")
         print("Test US19 passed successfully!\n")
 
-    # US20 - Aunts and uncles
+    # US20 - Aunts and uncles should not marry their nieces or nephews.
     def test_uncles_aunts(self):
         print("Test US20 passed successfully!\n")
 

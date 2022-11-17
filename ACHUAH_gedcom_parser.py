@@ -224,4 +224,4 @@ def createTables(file_name):
     
     return [ind, fam]
 
-createTables("ACHUAH_FAMILY.ged")
+#createTables("ACHUAH_FAMILY.ged")
