@@ -331,7 +331,6 @@ class TestGEDCOM(unittest.TestCase):
 
         print('Test US30 passed successfully!\n')
 
-
     # US15 - Fewer than 15 siblings
     def test_lessThan15Siblings(self):
         for person in table[0]:
@@ -391,11 +390,11 @@ class TestGEDCOM(unittest.TestCase):
     def test_no_descendant_marriage(self):
         return
 
-    # US18 - Siblings should not marry
+    # US18 - Siblings should not be married to each other
     def test_no_sibling_marriage(self):
         return
     
-    # US19 - First cousins should not marry
+    # US19 - First cousins should not be married to each other
     def test_no_first_cousin_marriage(self):
         return
 
