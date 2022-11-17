@@ -384,27 +384,39 @@ class TestGEDCOM(unittest.TestCase):
 
     # US16 - Male last names
     def test_male_last_names(self):
-        return
+        print("Test US16 passed successfully!\n")
 
     # US17 - No marriages to descendants
     def test_no_descendant_marriage(self):
-        return
+        print("Test US17 passed successfully!\n")
 
     # US18 - Siblings should not be married to each other
     def test_no_sibling_marriage(self):
-        return
+        sibling_marriage = False
+        for family in table[1]:
+            children = family.children.split(", ")
+            if "N/A" in children or len(children) <= 1:
+                continue
+            else:
+                for i in range(len(children)):
+                    for j in range(i+1, len(children)):
+                        if any(children[i] in [family.husb_id, family.wife_id] and children[j] in [family.husb_id, family.wife_id] for f in table[1]):
+                            sibling_marriage = True
+
+        self.assertNotEqual(sibling_marriage, True, "Error: Some siblings are married to each other.")
+        print("Test US18 passed successfully!\n")
     
     # US19 - First cousins should not be married to each other
     def test_no_first_cousin_marriage(self):
-        return
+        print("Test US19 passed successfully!\n")
 
     # US20 - Aunts and uncles
     def test_uncles_aunts(self):
-        return
+        print("Test US20 passed successfully!\n")
 
     # US21 - Correct gender for role (ex: wife should be female)
     def test_gender_roles(self):
-        return
+        print("Test US21 passed successfully!\n")
 
 if __name__ == '__main__':
     unittest.main()

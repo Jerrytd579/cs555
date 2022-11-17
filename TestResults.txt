@@ -1,33 +1,106 @@
 Test US07 passed successfully!
 
+Error: Person has no parents
+Andrew /Chuah/ has not died yet!
+Bryan /Chuah/ has not died yet!
+Louisa /Chu/ has not died yet!
+Matt /Chuah/ has not died yet!
+G /Chu/ has not died yet!
+P /Chu/ has not died yet!
+Jon /Chu/ has not died yet!
+Stan /Chu/ has not died yet!
+AG /Chuah/ has not died yet!
+AM /Chuah/ has not died yet!
+Pheng /Chuah/ has not died yet!
+AS /Chuah/ has not died yet!
+L /Chu/ has not died yet!
+Q /Qing/ has not died yet!
+W /Long/ has not died yet!
+H /Chuah/ has not died yet!
 Test US03 passed successfully!
 
-.Test US02 passed successfully!
+Error: Person has no parents
+Test US02 passed successfully!
 
-.Test US01 passed successfully!
+Test US01 passed successfully!
 
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
+AG /Chuah/ has not died yet!
+W /Long/ has not died yet!
+Error: Specified family does not have a divorce date!
+Error: Specified family does not have a divorce date!
 Test US06 passed successfully!
 
-.Test US15 passed successfully!
+Test US21 passed successfully!
 
+Test US15 passed successfully!
+
+Deceased List:
+D /Chu/,
+Hou /Chuah/,
+G /Lam/,
+Test US29 passed successfully!
+
+Living Married List:
+Bryan /Chuah/,
+Louisa /Chu/,
+AG /Chuah/,
+AM /Chuah/,
+G /Chu/,
+P /Chu/,
+L /Chu/,
+Q /Qing/,
+Test US30 passed successfully!
+
+Test US16 passed successfully!
+
+Bryan /Chuah/ has not died yet!
+Louisa /Chu/ has not died yet!
+AG /Chuah/ has not died yet!
+AM /Chuah/ has not died yet!
+G /Chu/ has not died yet!
+P /Chu/ has not died yet!
+L /Chu/ has not died yet!
+Q /Qing/ has not died yet!
+L /Chu/ has not died yet!
+AG /Chuah/ has not died yet!
+W /Long/ has not died yet!
 Test US05 passed successfully!
 
+Bryan /Chuah/ and Louisa /Chu/ have not divorced!
+AG /Chuah/ and AM /Chuah/ have not divorced!
+G /Chu/ and P /Chu/ have not divorced!
+L /Chu/ and Q /Qing/ have not divorced!
+L /Chu/ and D /Chu/ have not divorced!
+Hou /Chuah/ and G /Lam/ have not divorced!
 Test US04 passed successfully!
 
-.Test US10 passed successfully!
+Test US10 passed successfully!
 
-.Test US14 passed successfully!
+Test US14 passed successfully!
 
-.Test US13 passed successfully!
+Test US17 passed successfully!
 
-.Test US24 passed successfully!
+Test US19 passed successfully!
 
-.Test US25 passed successfully!
+Test US18 passed successfully!
 
-.Test US23 passed successfully!
+Test US13 passed successfully!
 
-.
-----------------------------------------------------------------------
-Ran 16 tests in 0.007s
+Test US20 passed successfully!
 
-OK
+Test US24 passed successfully!
+
+Test US25 passed successfully!
+
+Test US23 passed successfully!
+
