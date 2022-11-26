@@ -388,12 +388,46 @@ class TestGEDCOM(unittest.TestCase):
             self.assertEqual(len(familyNamesDupe), len(familyNames), "Error: Family contains duplicate names.")
         print("Test US25 passed successfully!\n")
 
-    # US16 - All males should have the same last names
-    def test_male_last_names(self):
+    # US16 - List all people who died within the last 30 days
+    def test_recent_deaths(self):
+        deads = []
+        currDate = datetime.datetime.today()
+
+        for person in table[0]:
+            if person.death == "N/A":
+                print(person.name + " has not died yet!")
+                continue
+
+            deathDaySplit = person.death.split(" ")
+            deathday = datetime.datetime(
+                int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
+
+            if(currDate.day - deathday.day <= 30):
+                deads.append((person, deathday));
+
+        deaddays = [dead[1] for dead in deads]
+        for deadday in deaddays:
+            self.assertLessEqual(currDate.day - deadday.day, 31, "Error: This guy is not dead.")
         print("Test US16 passed successfully!\n")
 
-    # US17 - Parents should not marry any of their descendants (may have to use recursion)
-    def test_no_descendant_marriage(self):
+    # US17 - Get all people who were born in the last 30 days
+    def test_recent_birthdate(self):
+        newborns = []
+        currDate = datetime.datetime.today()
+
+        for person in table[0]:
+            self.assertNotEqual(
+                person.birthday, None, "Error: " + person.name + "'s birthday cannot be None!")
+            birthDaySplit = person.birthday.split(" ")
+            birthday = datetime.datetime(
+                int(birthDaySplit[2]), month_dict[birthDaySplit[1]], int(birthDaySplit[0]))
+
+            if(currDate.day - birthday.day <= 30):
+                newborns.append((person, birthday));
+
+        birthdays = [newborn[1] for newborn in newborns]
+        for birthday in birthdays:
+            self.assertLessEqual(currDate.day - birthday.day, 31, "Error: This is not a newborn.")
         print("Test US17 passed successfully!\n")
 
     # US18 - Siblings should not be married to each other
