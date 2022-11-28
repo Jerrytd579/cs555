@@ -403,7 +403,7 @@ class TestGEDCOM(unittest.TestCase):
                 int(deathDaySplit[2]), month_dict[deathDaySplit[1]], int(deathDaySplit[0]))
 
             if(currDate.day - deathday.day <= 30):
-                deads.append((person, deathday));
+                deads.append((person, deathday))
 
         deaddays = [dead[1] for dead in deads]
         for deadday in deaddays:
@@ -472,10 +472,41 @@ class TestGEDCOM(unittest.TestCase):
 
     # US20 - Aunts and uncles should not marry their nieces or nephews.
     def test_uncles_aunts(self):
+        familyRelations = False
+        for family1 in table[1]:
+            for family2 in table[1]:
+                if family1.id == family2.id:
+                    continue
+                else:
+                    siblings = []
+                    if family1.husb_id in family2.children:
+                        children = family2.children.split(", ")
+                        siblings = [ele for ele in children if ele != family1.husb_id]
+                    if family1.wife_id in family2.children:
+                        children = family2.children.split(", ")
+                        siblings = [ele for ele in children if ele != family1.wife_id]
+                    if len(siblings) > 0:
+                        for sibling in siblings:
+                            for family3 in table[1]:
+                                if family3.husb_id == sibling and (family3.wife_id in children):
+                                    familyRelations = True
+                                if family3.wife_id == sibling and (family3.husb_id in children):
+                                    familyRelations = True
+                            
+        self.assertNotEqual(familyRelations, True, "Error: Aunts and Uncles are married to Nieces or Nephews")        
         print("Test US20 passed successfully!\n")
 
     # US21 - Correct gender for role (ex: wife should be female)
     def test_gender_roles(self):
+        correctRoles = True
+        for family in table[1]:
+            for individual in table[0]:
+                if individual.id == family.husb_id and individual.gender == 'F':
+                    correctRoles = False
+                if individual.id == family.wife_id and individual.gender == 'M':
+                    correctRoles = False
+
+        self.assertNotEqual(correctRoles, False, "Error: Some roles are not filled by the correct genders")
         print("Test US21 passed successfully!\n")
 
 if __name__ == '__main__':
